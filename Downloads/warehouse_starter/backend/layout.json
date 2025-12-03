@@ -1,0 +1,15 @@
+{
+  "locations": [
+    { "id": "IN_01", "type": "infeed", "x": 50,  "y": 200 },
+    { "id": "CONV_01", "type": "conveyor", "x": 150, "y": 200 },
+    { "id": "LIFT_01", "type": "lift", "x": 250, "y": 150 },
+    { "id": "OUT_01", "type": "outfeed", "x": 400, "y": 100 },
+    { "id": "OUT_02", "type": "outfeed", "x": 400, "y": 220 }
+  ],
+  "links": [
+    { "from": "IN_01", "to": "CONV_01" },
+    { "from": "CONV_01", "to": "LIFT_01" },
+    { "from": "LIFT_01", "to": "OUT_01" },
+    { "from": "LIFT_01", "to": "OUT_02" }
+  ]
+}

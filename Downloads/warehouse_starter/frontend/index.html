@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Warehouse Visualisation</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Warehouse Visualisation</h1>
+  <div id="controls">
+    <button id="playPauseBtn">Pause</button>
+    <span id="timeLabel">Time: -</span>
+    <select id="speedSelect">
+      <option value="1">1x</option>
+      <option value="5">5x</option>
+      <option value="10">10x</option>
+    </select>
+  </div>
+  <div id="main">
+    <div id="mapContainer"></div>
+    <div id="sidePanel">
+      <h2>Faults</h2><ul id="faultList"></ul>
+      <h2>Pallet History</h2>
+      <input id="palletInput" placeholder="Pallet ID">
+      <button id="palletHistoryBtn">Show</button>
+      <ul id="palletHistoryList"></ul>
+    </div>
+  </div>
+<script src="app.js"></script>
+</body></html>
