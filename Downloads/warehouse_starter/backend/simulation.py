@@ -25,24 +25,26 @@ class Simulation:
             if ev.timestamp > t:
                 break
 
-            if ev.message_type == "PALLET_MOVED":
-                p = state["pallets"].setdefault(ev.pallet_id, {
+        if ev.message_type == "PALLET_MOVED" or ev.message_type == "ARRIVAL":
+            # Treat ARRIVAL as a pallet moving to ev.to_loc
+            if ev.pallet_id not in state["pallets"]:
+                state["pallets"][ev.pallet_id] = {
                     "id": ev.pallet_id,
                     "currentLocation": None,
                     "lastUpdate": None,
-                })
-                p["currentLocation"] = ev.to_loc
-                p["lastUpdate"] = ev.timestamp.isoformat()
+                }
+            state["pallets"][ev.pallet_id]["currentLocation"] = ev.to_loc or ev.from_loc
+            state["pallets"][ev.pallet_id]["lastUpdate"] = ev.timestamp.isoformat()
 
-            elif ev.message_type == "EQUIP_FAULT":
-                if ev.equipment_id:
+        elif ev.message_type == "EQUIP_FAULT":
+            if ev.equipment_id:
                     self._ensure_equipment(state, ev.equipment_id)
                     eq = state["equipment"][ev.equipment_id]
                     if eq["status"] != "fault":
                         eq["status"] = "fault"
                         eq["lastFaultStart"] = ev.timestamp
 
-            elif ev.message_type == "EQUIP_RECOVER":
+        elif ev.message_type == "EQUIP_RECOVER":
                 if ev.equipment_id:
                     self._ensure_equipment(state, ev.equipment_id)
                     eq = state["equipment"][ev.equipment_id]
